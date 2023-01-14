@@ -1,61 +1,77 @@
-import 'package:flutter/cupertino.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled2/modules/ViewData/LoginZabbix.dart';
-import 'package:untitled2/modules/ViewData/LoginZabbix.dart';
 
-import 'LoginZabbix.dart';
-import 'LoginZabbix.dart';
-import 'LoginZabbix.dart';
-import 'ViewData.dart';
-import 'ViewData2.dart';
+const _kPages = <String, IconData>{
+  'home': Icons.home,
+  'map': Icons.map,
+  'add': Icons.add,
+  'message': Icons.message,
+  'people': Icons.people,
+};
 
-class NavBar2 extends StatefulWidget {
-  const NavBar2({Key? key}) : super(key: key);
+class ConvexAppExample extends StatefulWidget {
+  const ConvexAppExample({super.key});
 
   @override
-  State<NavBar2> createState() => _NavBar2State();
+  _ConvexAppExampleState createState() => _ConvexAppExampleState();
 }
 
-class _NavBar2State extends State<NavBar2> {
-  late LoginZabbix loginZabbix;
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static  List<Widget> _widgetOptions = <Widget>[   MyHomePage() ,    Text(      'Index 1: Business',      style: optionStyle,    ),    Text(      'Index 2: School',      style: optionStyle,    ),  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class _ConvexAppExampleState extends State<ConvexAppExample> {
+  TabStyle _tabStyle = TabStyle.reactCircle;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+    return DefaultTabController(
+      length: 5,
+      initialIndex: 2,
+      child: Scaffold(
+        body: Column(
+          children: [
+            _buildStyleSelector(),
+            const Divider(),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  for (final icon in _kPages.values) Icon(icon, size: 64),
+                ],
+              ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: ConvexAppBar.badge(
+          // Optional badge argument: keys are tab indices, values can be
+          // String, IconData, Color or Widget.
+          /*badge=*/ const <int, dynamic>{3: '99+'},
+          style: _tabStyle,
+          items: <TabItem>[
+            for (final entry in _kPages.entries)
+              TabItem(icon: entry.value, title: entry.key),
+          ],
+          onTap: (int i) => print('click index=$i'),
+        ),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
+    );
+  }
+
+  // Select style enum from dropdown menu:
+  Widget _buildStyleSelector() {
+    final dropdown = DropdownButton<TabStyle>(
+      value: _tabStyle,
+      onChanged: (newStyle) {
+        if (newStyle != null) setState(() => _tabStyle = newStyle);
+      },
+      items: [
+        for (final style in TabStyle.values)
+          DropdownMenuItem(
+            value: style,
+            child: Text(style.toString()),
+          )
+      ],
+    );
+    return ListTile(
+      contentPadding: const EdgeInsets.all(8),
+      title: const Text('appbar style:'),
+      trailing: dropdown,
     );
   }
 }

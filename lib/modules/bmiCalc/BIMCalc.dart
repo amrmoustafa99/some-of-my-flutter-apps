@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:untitled2/modules/bmiResult/BMI_Result_Screen.dart';
+import 'package:untitled2/modules/bmiCalc/GenderOption.dart';
 
+import 'WeightAndAge.dart';
+import 'bmiResult/BMI_Result_Screen.dart';
 
 class BIMCalc extends StatefulWidget {
   const BIMCalc({Key? key}) : super(key: key);
@@ -12,109 +14,60 @@ class BIMCalc extends StatefulWidget {
 }
 
 class _BIMCalcState extends State<BIMCalc> {
-  bool ismale=true;
-  int weight=40;
-  int age=15;
-  double height=120;
+  bool ismale = true;
+  int weight = 40;
+  int age = 15;
+  double height = 120;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-        Center(
+        title: Center(
           child: Text(
             'BMI CALCULATOR',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-
             ),
           ),
         ),
       ),
-      body:Column(
+      body: Column(
         children: [
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
-                     Expanded(
-                       child: GestureDetector(
-                         onTap: (){
-                           setState(() {
-                             ismale=true;
-                           });
-                         },
-                         child: Container(
-                           decoration: BoxDecoration(
-                             borderRadius: BorderRadius.circular(20),
-                             color: ismale ? Colors.blue : Colors.grey
-                           ),
-                           child: Column(
-                             mainAxisAlignment: MainAxisAlignment.center,
-                             children: [
-                               Icon(
-                                 Icons.male,
-                                 size: 70,
-                               ),
-                               SizedBox(
-                                 height: 10,
-                               ),
-                               Text(
-                                 'MALE',
-                                 style: TextStyle(
-                                   fontSize: 20,
-                                   fontWeight: FontWeight.bold
-                                 ),
-                               ),
-                             ],
-                           ),
-                         ),
-                       ),
-                     ),
-                     SizedBox(
-                       width: 20,
-                     ),
-                     Expanded(
-                    child: GestureDetector(
-                      onTap: (){
-                        setState(() {
-                          ismale=false;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: ismale ? Colors.grey : Colors.blue ,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.female,
-                              size: 70,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'FEMALE',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  GenderOption(
+                    onTap: () {
+                      setState(() {
+                        ismale = true;
+                      });
+                    },
+                    iconData: Icons.male,
+                    isSelected: ismale,
+                    label: "Male",
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  GenderOption(
+                    onTap: () {
+                      setState(() {
+                        ismale = false;
+                      });
+                    },
+                    iconData: Icons.female,
+                    isSelected: !ismale,
+                    label: "Female",
                   )
                 ],
               ),
@@ -122,58 +75,50 @@ class _BIMCalcState extends State<BIMCalc> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey
-                ),
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey),
                 child: Column(
-
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'HEIGHT',
                       style: TextStyle(
-                          fontSize: 20,
+                        fontSize: 20,
                       ),
                     ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${height.round()}',
-                            style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold
-                            ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${height.round()}',
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'cm',
+                          style: TextStyle(
+                            fontSize: 20,
                           ),
-                          Text(
-                            'cm',
-                            style: TextStyle(
-                                fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
                     Slider(
-                        value: height ,
+                        value: height,
                         max: 220,
                         min: 80,
-                        onChanged: (value){
-                           setState(() {
-                             height=value;
-                           });
-                        }
-                    )
-
+                        onChanged: (value) {
+                          setState(() {
+                            height = value;
+                          });
+                        })
                   ],
                 ),
               ),
@@ -184,148 +129,52 @@ class _BIMCalcState extends State<BIMCalc> {
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:Colors.grey
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'WEIGHT',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),
+                  WeightAndAge(
+                    label: 'WEIGHT',
+                    value: weight,
+                    onDecrement: (value) {
+                      if (value == 0) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Sorry can't minimize more"),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '${weight}',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FloatingActionButton(
-                                onPressed: (){
-                                  if(weight==0){
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                      content: Text("Sorry can't minize more"),
-                                    ));
-                                  }
-                                  else {
-                                    weight--;
-                                    setState(() {
-
-                                    });
-                                  }
-                                },
-                                mini: true,
-                                child: Icon(Icons.remove),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              FloatingActionButton(
-                                onPressed: (){
-
-                                  weight++;
-                                  setState(() {
-
-                                  });
-
-                                },
-                                mini: true,
-                                child: Icon(Icons.add),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                        );
+                      } else {
+                        setState(() {
+                          weight--;
+                        });
+                      }
+                    },
+                    onIncrement: (value) {
+                      setState(() {
+                        weight++;
+                      });
+                    },
                   ),
                   SizedBox(
                     width: 20,
                   ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:Colors.grey
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'AGE',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),
+                  WeightAndAge(
+                    label: 'AGE',
+                    value: age,
+                    onDecrement: (value) {
+                      if (value == 0) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Sorry can't minimize more"),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '${age}',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                             FloatingActionButton(
-                               onPressed: (){
-                                 if(age==0){
-                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                     content: Text("Sorry can't minize more"),
-                                   ));
-                                 }
-                                 else {
-                                   age--;
-                                   setState(() {
-
-                                   });
-                                 }
-                               },
-                               mini: true,
-                               child: Icon(Icons.remove),
-                             ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              FloatingActionButton(
-                                onPressed: (){
-
-                                    age++;
-                                    setState(() {
-
-                                    });
-
-                                },
-                                mini: true,
-                                child: Icon(Icons.add),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                        );
+                      } else {
+                        setState(() {
+                          age--;
+                        });
+                      }
+                    },
+                    onIncrement: (value) {
+                      setState(() {
+                        age++;
+                      });
+                    },
                   ),
                 ],
               ),
@@ -336,18 +185,18 @@ class _BIMCalcState extends State<BIMCalc> {
             width: double.infinity,
             color: Colors.blue,
             child: MaterialButton(
-              onPressed: (){
-                double res=weight/pow(height/100, 2);
+              onPressed: () {
+                double res = weight / pow(height / 100, 2);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: ((context) => BMIRessultScreen(
-                          age: age,
-                          isMale:ismale,
-                          reslut: res.round(),
-                        ))
-                    )
-                );
+                              weight: weight,
+                              height: height.toInt(),
+                              age: age,
+                              isMale: ismale,
+                              reslut: res.round(),
+                            ))));
               },
               child: Text(
                 'CALCULATE',

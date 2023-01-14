@@ -14,29 +14,27 @@ import 'package:untitled2/shared/network/Local/cashHelper.dart';
 import 'modules/Messanger1/MessangerScreen.dart';
 import 'modules/Messanger2/MessangerScreen2.dart';
 import 'modules/ShopScreen/ShopScreen.dart';
+import 'modules/ViewData/DashboarPage.dart';
 import 'modules/ViewData/ForTest.dart';
 import 'modules/ViewData/LoginZabbix.dart';
 import 'modules/ViewData/NavBar2.dart';
 import 'modules/ViewData/ViewData.dart';
 import 'modules/ViewData/ViewData2.dart';
+import 'modules/bmiCalc/BIMCalc.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-DioHelper.init();
- await CashHelper.init();
+  DioHelper.init();
+  await CashHelper.init();
 
-  runApp( MyApp());
-
-
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // theme:ThemeData(
@@ -74,7 +72,7 @@ class MyApp extends StatelessWidget {
       //
       // ),
 
-      theme: ThemeData(
+      /*  theme: ThemeData(
         colorScheme: ColorScheme(
           brightness: Brightness.light,
           primary: Colors.red,
@@ -91,8 +89,8 @@ class MyApp extends StatelessWidget {
           error: Colors.grey,
           onError: Colors.grey,
         ),
-      ),
-      home: LoginZabbix(),
+      )*/
+      home: BIMCalc(),
     );
   }
 }
