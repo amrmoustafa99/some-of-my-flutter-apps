@@ -19,7 +19,7 @@ class _ForTestState extends State<ForTest> {
   var urlImag;
 
   final String zabbixApiEndpoint = 'http://192.168.1.150/api_jsonrpc.php';
-  final String username = 'Adminnnnnnnnnnnnnnnnnnnnnnnnnnnnnn';
+  final String username = 'Admin';
   final String password = 'zabbix';
 
   late List<dynamic> hosts;
